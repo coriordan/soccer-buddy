@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SoccerBuddy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_title">Title</string>
+    <string name="label_players">Players</string>
+    <string name="label_description">Description</string>
+    <string name="label_date">Date</string>
 </resources>
