@@ -1,5 +1,6 @@
 package com.example.soccerbuddy.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
@@ -8,7 +9,7 @@ import android.text.TextUtils;
 
 import java.util.Date;
 
-@Entity
+@Entity(tableName = "matches")
 public class Match implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
@@ -16,6 +17,10 @@ public class Match implements Parcelable {
     String title;
     String description;
     int playersRequired;
+    @ColumnInfo(name = "created_at")
+    Date createdAt;
+    @ColumnInfo(name = "updated_at")
+    Date updatedAt;
     Date fixtureDate;
     SkillLevel skillLevel;
 
@@ -45,6 +50,22 @@ public class Match implements Parcelable {
         this.playersRequired = playersRequired;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public Date getFixtureDate() {
         return fixtureDate;
     }
@@ -67,6 +88,12 @@ public class Match implements Parcelable {
         description = in.readString();
         playersRequired = in.readInt();
 
+        final long created = in.readLong();
+        createdAt = created != -1 ? new Date(created) : null;
+
+        final long updated = in.readLong();
+        updatedAt = updated != -1 ? new Date(updated) : null;
+
         final long time = in.readLong();
         fixtureDate = time != -1 ? new Date(time) : null;
 
@@ -82,6 +109,8 @@ public class Match implements Parcelable {
         dest.writeString(title);
         dest.writeString(description);
         dest.writeInt(playersRequired);
+        dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
+        dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
         dest.writeLong(fixtureDate != null ? fixtureDate.getTime() : -1);
         dest.writeInt(skillLevel != null ? skillLevel.ordinal() : -1);
     }
