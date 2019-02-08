@@ -7,4 +7,8 @@
     <string name="label_players">Players</string>
     <string name="label_description">Description</string>
     <string name="label_date">Date</string>
+    <string name="description_easy">Easy</string>
+    <string name="description_moderate">Moderate</string>
+    <string name="description_competitive">Competitive</string>
+    <string name="label_skillLevel">Skill Level</string>
 </resources>
