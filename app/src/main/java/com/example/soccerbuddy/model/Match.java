@@ -1,21 +1,25 @@
 package com.example.soccerbuddy.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.util.Date;
 
+@Entity
 public class Match implements Parcelable {
 
-
-    public Match() {}
-
+    @PrimaryKey(autoGenerate = true)
+    public long id;
     String title;
     String description;
     int playersRequired;
     Date fixtureDate;
     SkillLevel skillLevel;
+
+    public Match() {}
 
     public String getTitle() {
         return title;
@@ -58,6 +62,7 @@ public class Match implements Parcelable {
     }
 
     protected Match(final Parcel in) {
+        id = in.readLong();
         title = in.readString();
         description = in.readString();
         playersRequired = in.readInt();
@@ -73,6 +78,7 @@ public class Match implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeString(title);
         dest.writeString(description);
         dest.writeInt(playersRequired);
