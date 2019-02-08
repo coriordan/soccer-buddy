@@ -6,7 +6,7 @@
                     <solid android:color="@color/colorAccent"/>
                 </shape>
             </item>
-            <item android:width="32dp" android:height="32dp" android:gravity="center" android:drawable="@drawable/ic_easy_white"/>
+            <item android:width="48dp" android:height="48dp" android:gravity="center" android:drawable="@drawable/ic_easy_white"/>
         </layer-list>
     </item>
     <item android:state_checked="false" android:drawable="@drawable/ic_easy"/>
