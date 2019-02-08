@@ -29,4 +29,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'android.arch.persistence.room:runtime:+'
     annotationProcessor 'android.arch.persistence.room:compiler:+'
+    implementation 'android.arch.lifecycle:runtime:+'
+    implementation 'android.arch.lifecycle:extensions:+'
+    annotationProcessor 'android.arch.lifecycle:compiler:+'
 }
