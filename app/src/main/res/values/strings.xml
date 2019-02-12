@@ -11,4 +11,10 @@
     <string name="description_moderate">Moderate</string>
     <string name="description_competitive">Competitive</string>
     <string name="label_skillLevel">Skill Level</string>
+    <string name="label_save">Add Match</string>
+    <string name="title_playing">Playing</string>
+    <string name="title_hosting">Hosting</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_search">Search</string>
+    <string name="title_add_match">Add Match</string>
 </resources>

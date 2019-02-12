@@ -7,32 +7,16 @@
     android:orientation="vertical"
     tools:context="com.example.soccerbuddy.AddMatchActivity">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <fragment
+    <fragment
             class="com.example.soccerbuddy.MatchDetailsFragment"
             android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/grid_spacer1" />
 
-    </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_spacer1">
 
-        <fragment
-            class="com.example.soccerbuddy.ui.SkillLevelPickerFragment"
-            android:id="@+id/categories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/grid_spacer1"/>
 
-    </android.support.v7.widget.CardView>
 
 
 </LinearLayout>

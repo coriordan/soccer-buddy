@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorHeavy">#424242</color>
     <color name="colorMedium">#9E9E9E</color>
+    <color name="bgBottomNavigation">#fe485a</color>
 </resources>
