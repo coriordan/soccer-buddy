@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">SoccerBuddy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_title">Title</string>
+    <string name="label_players">Players</string>
+    <string name="label_description">Description</string>
+    <string name="label_date">Date</string>
+    <string name="description_easy">Easy</string>
+    <string name="description_moderate">Moderate</string>
+    <string name="description_competitive">Competitive</string>
+    <string name="label_skillLevel">Skill Level</string>
+    <string name="label_save">Add Match</string>
+    <string name="title_playing">Playing</string>
+    <string name="title_hosting">Hosting</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_search">Search</string>
+    <string name="title_add_match">Add Match</string>
 </resources>
