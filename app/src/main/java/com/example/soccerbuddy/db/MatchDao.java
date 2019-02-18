@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface MatchDao {
 
-    @Query("SELECT * FROM matches ORDER BY created_at DESC")
+    @Query("SELECT * FROM matches")
     LiveData<List<Match>> selectAll();
 
     @Query("SELECT * FROM matches WHERE id =:matchId")
