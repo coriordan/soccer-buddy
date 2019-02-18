@@ -2,4 +2,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="grid_spacer1">8dp</dimen>
     <dimen name="input_size_amount">100sp</dimen>
+    <dimen name="match_preview_height">80dp</dimen>
 </resources>

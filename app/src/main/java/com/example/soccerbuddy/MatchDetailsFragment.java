@@ -1,13 +1,14 @@
 package com.example.soccerbuddy;
 
-
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,7 +20,6 @@ import com.example.soccerbuddy.widget.DatePickerLayout;
 import org.w3c.dom.Text;
 
 import java.util.Date;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,11 +65,18 @@ public class MatchDetailsFragment extends Fragment {
             matchItem = new Match();
         }
 
+        Button addButton = details.findViewById(R.id.saveMatch);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addMatch();
+            }
+        });
+
         return details;
     }
 
-    public void addMatchItem(View view) {
-
+    private void addMatch() {
         SoccerBuddyApplication app = (SoccerBuddyApplication) getActivity().getApplication();
 
         int players = TextUtils.isEmpty(playersRequired.getText().toString()) ?
@@ -83,9 +90,8 @@ public class MatchDetailsFragment extends Fragment {
                 SkillLevel.forIdResource(skillLevels.getCheckedRadioButtonId())
         );
 
-        //
+        startActivity(new Intent(this.getActivity(), MainActivity.class));
     }
-
 
     class IconPickerWrapper implements RadioGroup.OnCheckedChangeListener {
 

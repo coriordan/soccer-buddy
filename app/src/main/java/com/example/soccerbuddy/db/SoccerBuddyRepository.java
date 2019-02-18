@@ -38,6 +38,8 @@ public class SoccerBuddyRepository {
         match.setSkillLevel(skillLevel);
         match.setCreatedAt(new Date());
         match.setUpdatedAt(new Date());
+
+        insertMatch(match);
     }
 
     public void insertMatch(final Match match) {

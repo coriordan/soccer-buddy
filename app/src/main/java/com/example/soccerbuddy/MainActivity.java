@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = getSupportActionBar();
 
-        toolbar.setTitle("Add a match");
-        loadFragment(new MatchDetailsFragment());
+        toolbar.setTitle(R.string.title_explore_matches);
+        loadFragment(new ExploreMatchesFragment());
 
         final BottomNavigationView navigationView = findViewById(R.id.navigation);
-        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -38,21 +38,23 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_search:
-                    toolbar.setTitle("Search Matches");
+                    toolbar.setTitle(R.string.title_explore_matches);
+                    fragment = new ExploreMatchesFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_playing:
-                    toolbar.setTitle("Playing");
+                    toolbar.setTitle(R.string.title_playing);
                     return true;
                 case R.id.navigation_add_match:
-                    toolbar.setTitle("Add Match");
+                    toolbar.setTitle(R.string.title_add_match);
                     fragment = new MatchDetailsFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_hosting:
-                    toolbar.setTitle("Hosting");
+                    toolbar.setTitle(R.string.title_hosting);
                     return true;
                 case R.id.navigation_profile:
-                    toolbar.setTitle("Profile");
+                    toolbar.setTitle(R.string.title_profile);
                     return true;
             }
             return false;
