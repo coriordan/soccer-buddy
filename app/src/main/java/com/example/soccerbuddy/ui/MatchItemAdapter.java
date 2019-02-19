@@ -41,7 +41,7 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
 
         liveItems.observe(owner, new Observer<List<Match>>() {
             public void onChanged(final List<Match> matchItems) {
-                // initialize items and filtered items together
+                // initialize unfiltered items and filtered items together
                 MatchItemAdapter.this.items = (matchItems != null)
                         ? matchItems
                         : Collections.<Match>emptyList();
@@ -73,9 +73,7 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
     public void onBindViewHolder(
             final DataBoundViewHolder<MatchPresenter, Match> holder,
             final int position) {
-        Match match = itemsFiltered.get(position);
-
-        holder.setItem(match);
+        holder.setItem(itemsFiltered.get(position));
     }
 
     public int getItemCount() {
