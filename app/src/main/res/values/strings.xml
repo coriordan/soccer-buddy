@@ -2,7 +2,6 @@
     <string name="app_name">SoccerBuddy</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_title">Title</string>
     <string name="label_players">Players</string>
     <string name="label_description">Description</string>
@@ -16,8 +15,8 @@
     <string name="title_hosting">Hosting</string>
     <string name="title_profile">Profile</string>
     <string name="title_explore">Explore</string>
-    <string name="title_add_match">Add Match</string>
-    <string name="title_explore_matches">Explore Matches</string>
+    <string name="title_add_match">Add a match</string>
+    <string name="title_explore_matches">Explore matches</string>
     <string name="play_match">Play a match</string>
     <string name="players_needed">Players</string>
     <string name="item_description_label">Description</string>
