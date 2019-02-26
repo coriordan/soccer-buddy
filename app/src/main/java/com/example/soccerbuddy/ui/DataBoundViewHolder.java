@@ -2,6 +2,7 @@ package com.example.soccerbuddy.ui;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.soccerbuddy.BR;
 
@@ -11,10 +12,14 @@ public class DataBoundViewHolder<P, I> extends RecyclerView.ViewHolder {
 
     private I item;
 
-    public DataBoundViewHolder(final ViewDataBinding binding, final P presenter) {
+    public DataBoundViewHolder(final ViewDataBinding binding,
+                               final P presenter,
+                               View.OnClickListener onClickListener) {
         super(binding.getRoot());
         this.binding = binding;
         this.binding.setVariable(BR.presenter, presenter);
+        itemView.setTag(this);
+        itemView.setOnClickListener(onClickListener);
     }
 
     public void setItem(final I item) {

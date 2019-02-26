@@ -5,8 +5,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import android.databinding.DataBindingUtil;
@@ -30,6 +30,8 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
     private final MatchPresenter matchPresenter;
     private List<Match> items = emptyList();
     private List<Match> itemsFiltered = emptyList();
+    private View.OnClickListener onClickListener;
+
 
     public MatchItemAdapter(
             final Context context,
@@ -66,7 +68,8 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
                         parent,
                         false
                 ),
-                matchPresenter
+                matchPresenter,
+                onClickListener
         );
     }
 
@@ -80,6 +83,9 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
         return itemsFiltered.size();
     }
 
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     @Override
     public Filter getFilter() {

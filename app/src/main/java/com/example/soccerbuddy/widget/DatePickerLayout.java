@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.soccerbuddy.DatePickerWrapper;
+import com.example.soccerbuddy.ui.DatePickerWrapper;
 import com.example.soccerbuddy.R;
 
 import java.util.Date;

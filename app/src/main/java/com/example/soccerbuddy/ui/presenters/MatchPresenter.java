@@ -1,6 +1,9 @@
 package com.example.soccerbuddy.ui.presenters;
 
+import android.arch.persistence.room.util.StringUtil;
 import android.content.Context;
+
+import com.example.soccerbuddy.model.SkillLevel;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -14,10 +17,18 @@ public class MatchPresenter {
 
     public String formatDate(final Date date) {
         if (dateFormat == null) {
-            dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT);
+            dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
         }
 
         return dateFormat.format(date);
+    }
+
+    public String formatSkillLevel(SkillLevel level) {
+        if (level == null) {
+            level = SkillLevel.EASY; // default to 'easy'
+        }
+
+        return level.toString().toLowerCase();
     }
 
 }
