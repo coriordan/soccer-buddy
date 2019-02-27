@@ -5,8 +5,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import android.databinding.DataBindingUtil;
@@ -30,6 +30,8 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
     private final MatchPresenter matchPresenter;
     private List<Match> items = emptyList();
     private List<Match> itemsFiltered = emptyList();
+    private View.OnClickListener onClickListener;
+
 
     public MatchItemAdapter(
             final Context context,
@@ -41,7 +43,7 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
 
         liveItems.observe(owner, new Observer<List<Match>>() {
             public void onChanged(final List<Match> matchItems) {
-                // initialize items and filtered items together
+                // initialize unfiltered items and filtered items together
                 MatchItemAdapter.this.items = (matchItems != null)
                         ? matchItems
                         : Collections.<Match>emptyList();
@@ -66,22 +68,24 @@ public class MatchItemAdapter extends RecyclerView.Adapter<DataBoundViewHolder<M
                         parent,
                         false
                 ),
-                matchPresenter
+                matchPresenter,
+                onClickListener
         );
     }
 
     public void onBindViewHolder(
             final DataBoundViewHolder<MatchPresenter, Match> holder,
             final int position) {
-        Match match = itemsFiltered.get(position);
-
-        holder.setItem(match);
+        holder.setItem(itemsFiltered.get(position));
     }
 
     public int getItemCount() {
         return itemsFiltered.size();
     }
 
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     @Override
     public Filter getFilter() {

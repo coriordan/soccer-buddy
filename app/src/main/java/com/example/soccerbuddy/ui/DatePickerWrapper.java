@@ -1,4 +1,4 @@
-package com.example.soccerbuddy;
+package com.example.soccerbuddy.ui;
 
 import android.app.DatePickerDialog;
 import android.view.View;

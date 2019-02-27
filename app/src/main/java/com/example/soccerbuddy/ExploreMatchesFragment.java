@@ -1,16 +1,20 @@
 package com.example.soccerbuddy;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.soccerbuddy.model.Match;
+import com.example.soccerbuddy.ui.DataBoundViewHolder;
 import com.example.soccerbuddy.ui.MatchItemAdapter;
+
+import static com.example.soccerbuddy.ViewMatchItemActivity.EXTRA_MATCH_ITEM;
 
 
 /**
@@ -37,6 +41,7 @@ public class ExploreMatchesFragment extends Fragment {
                 this,
                 app.getSoccerBuddyRepository().getMatches());
 
+        mAdapter.setOnClickListener(new ViewMatchItemClickListener());
         matchItems.setAdapter(mAdapter);
 
         SearchView searchView = view.findViewById(R.id.searchView);
@@ -57,5 +62,22 @@ public class ExploreMatchesFragment extends Fragment {
 
         return view;
     }
+
+    class ViewMatchItemClickListener
+            implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            DataBoundViewHolder<?, Match> viewHolder =
+                    (DataBoundViewHolder<?, Match>) v.getTag();
+
+            Intent viewMatchItemActivity = new Intent(
+                    getContext(),
+                    ViewMatchItemActivity.class);
+            viewMatchItemActivity.putExtra(EXTRA_MATCH_ITEM, viewHolder.getItem());
+            startActivity(viewMatchItemActivity);
+        }
+    }
+
 
 }

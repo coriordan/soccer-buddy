@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.soccerbuddy.model.Match;
 import com.example.soccerbuddy.model.SkillLevel;
 import com.example.soccerbuddy.widget.DatePickerLayout;
+import com.example.soccerbuddy.widget.TimePickerLayout;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +33,7 @@ public class MatchDetailsFragment extends Fragment {
     private EditText description;
     private EditText playersRequired;
     private DatePickerLayout selectedDate;
+    private TimePickerLayout kickOffTime;
     private RadioGroup skillLevels;
     private TextView selectedLevelLabel;
 
@@ -53,6 +55,7 @@ public class MatchDetailsFragment extends Fragment {
         description = (EditText) details.findViewById(R.id.description);
         playersRequired = (EditText) details.findViewById(R.id.playersRequired);
         selectedDate = (DatePickerLayout) details.findViewById(R.id.date);
+        kickOffTime = (TimePickerLayout) details.findViewById(R.id.time);
         skillLevels = (RadioGroup) details.findViewById(R.id.skillLevels);
         selectedLevelLabel = (TextView) details.findViewById(R.id.selected_level);
 
@@ -87,6 +90,7 @@ public class MatchDetailsFragment extends Fragment {
                 description.getText().toString(),
                 players,
                 selectedDate.getDate(),
+                kickOffTime.getTime(),
                 SkillLevel.forIdResource(skillLevels.getCheckedRadioButtonId())
         );
 

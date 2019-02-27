@@ -3,4 +3,6 @@
     <dimen name="grid_spacer1">8dp</dimen>
     <dimen name="input_size_amount">100sp</dimen>
     <dimen name="match_preview_height">80dp</dimen>
+    <dimen name="allowance_overview_label_min_width">50dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
 </resources>

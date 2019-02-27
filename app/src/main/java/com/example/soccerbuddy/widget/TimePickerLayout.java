@@ -9,45 +9,47 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.soccerbuddy.ui.DatePickerWrapper;
 import com.example.soccerbuddy.R;
+import com.example.soccerbuddy.ui.DatePickerWrapper;
+import com.example.soccerbuddy.ui.TimePickerWrapper;
 
 import java.util.Date;
 
-public class DatePickerLayout extends LinearLayout {
+public class TimePickerLayout extends LinearLayout {
+
     private TextView label;
-    private DatePickerWrapper wrapper;
+    private TimePickerWrapper wrapper;
 
     private void initialize(final Context context) {
         setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(
-                R.layout.widget_date_picker, this, true);
+                R.layout.widget_time_picker, this, true);
 
         label = (TextView) getChildAt(0);
-        wrapper = new DatePickerWrapper((TextView) getChildAt(1));
+        wrapper = new TimePickerWrapper((TextView) getChildAt(1));
     }
 
-    public DatePickerLayout(Context context) {
+    public TimePickerLayout(Context context) {
         super(context);
         initialize(context);
     }
 
-    public DatePickerLayout(Context context, AttributeSet attrs) {
+    public TimePickerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         initialize(context);
     }
 
-    public DatePickerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TimePickerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initialize(context);
     }
 
-    public void setDate(final Date date) {
-        wrapper.setDate(date);
+    public void setTime(final Date date) {
+        wrapper.setTime(date);
     }
 
-    public Date getDate() {
-        return wrapper.getDate();
+    public Date getTime() {
+        return wrapper.getTime();
     }
 
     public void setLabel(final CharSequence text) {
@@ -66,17 +68,16 @@ public class DatePickerLayout extends LinearLayout {
     protected Parcelable onSaveInstanceState() {
         return new SavedState(
                 super.onSaveInstanceState(),
-                getDate().getTime(), getLabel());
+                getTime().getTime(), getLabel());
     }
 
     @Override
     protected void onRestoreInstanceState(final Parcelable state) {
         final SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
-        setDate(new Date(savedState.timestamp));
+        setTime(new Date(savedState.timestamp));
         setLabel(savedState.label);
     }
-
 
     private static class SavedState extends BaseSavedState {
 
