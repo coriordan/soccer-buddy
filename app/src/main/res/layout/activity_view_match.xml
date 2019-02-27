@@ -116,6 +116,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
+                        android:text="@{presenter.formatTime(match.kickoffTime)}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         tools:text="@tools:sample/date/hhmm" />
 

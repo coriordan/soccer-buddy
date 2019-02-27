@@ -11,6 +11,8 @@ import com.example.soccerbuddy.model.SkillLevel;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.soccerbuddy.db.SoccerBuddyDatabase.MIGRATION_1_2;
+
 public class SoccerBuddyRepository {
 
     private String DB_NAME = "soccer_buddy";
@@ -22,19 +24,21 @@ public class SoccerBuddyRepository {
                 context,
                 SoccerBuddyDatabase.class,
                 DB_NAME
-        ).build();
+        ).addMigrations(MIGRATION_1_2).build();
     }
 
     public void insertMatch(String title,
                             String description,
                             int playersRequired,
                             Date fixtureDate,
+                            Date kickOffTime,
                             SkillLevel skillLevel) {
         Match match = new Match();
         match.setTitle(title);
         match.setDescription(description);
         match.setPlayersRequired(playersRequired);
         match.setFixtureDate(fixtureDate);
+        match.setKickoffTime(kickOffTime);
         match.setSkillLevel(skillLevel);
         match.setCreatedAt(new Date());
         match.setUpdatedAt(new Date());

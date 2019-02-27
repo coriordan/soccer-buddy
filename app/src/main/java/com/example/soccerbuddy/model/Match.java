@@ -22,6 +22,7 @@ public class Match implements Parcelable {
     @ColumnInfo(name = "updated_at")
     Date updatedAt;
     Date fixtureDate;
+    Date kickoffTime;
     SkillLevel skillLevel;
 
     public Match() {}
@@ -74,6 +75,10 @@ public class Match implements Parcelable {
         this.fixtureDate = fixtureDate;
     }
 
+    public Date getKickoffTime() { return kickoffTime; }
+
+    public void setKickoffTime(Date kickoffTime) { this.kickoffTime = kickoffTime; }
+
     public SkillLevel getSkillLevel() {
         return skillLevel;
     }
@@ -97,6 +102,9 @@ public class Match implements Parcelable {
         final long time = in.readLong();
         fixtureDate = time != -1 ? new Date(time) : null;
 
+        final long kickOff = in.readLong();
+        kickoffTime = kickOff != -1 ? new Date(kickOff) : null;
+
         final int skillLevelOrd = in.readInt();
         skillLevel = skillLevelOrd != -1
                 ? SkillLevel.values()[skillLevelOrd]
@@ -112,6 +120,7 @@ public class Match implements Parcelable {
         dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
         dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
         dest.writeLong(fixtureDate != null ? fixtureDate.getTime() : -1);
+        dest.writeLong(kickoffTime != null ? kickoffTime.getTime() : -1);
         dest.writeInt(skillLevel != null ? skillLevel.ordinal() : -1);
     }
 
@@ -137,6 +146,7 @@ public class Match implements Parcelable {
                 && !TextUtils.isEmpty(description)
                 && playersRequired > 0
                 && fixtureDate != null
+                && kickoffTime != null
                 && skillLevel != null;
     }
 }
