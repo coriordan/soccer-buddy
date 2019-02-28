@@ -1,6 +1,5 @@
-package com.example.soccerbuddy.ui;
+package com.madein75.soccerbuddy.ui;
 
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.view.View;
 import android.widget.TextView;

@@ -1,4 +1,4 @@
-package com.example.soccerbuddy.model;
+package com.madein75.soccerbuddy.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

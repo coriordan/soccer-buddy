@@ -6,11 +6,11 @@
     <data>
         <variable
             name="presenter"
-            type="com.example.soccerbuddy.ui.presenters.MatchPresenter" />
+            type="com.madein75.soccerbuddy.ui.presenters.MatchPresenter" />
 
         <variable
             name="match"
-            type="com.example.soccerbuddy.model.Match" />
+            type="com.madein75.soccerbuddy.model.Match" />
     </data>
 
     <RelativeLayout

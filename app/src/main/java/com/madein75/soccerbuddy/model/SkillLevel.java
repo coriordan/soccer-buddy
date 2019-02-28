@@ -1,8 +1,8 @@
-package com.example.soccerbuddy.model;
+package com.madein75.soccerbuddy.model;
 
 import android.support.annotation.IdRes;
 
-import com.example.soccerbuddy.R;
+import com.madein75.soccerbuddy.R;
 
 public enum SkillLevel {
     EASY(R.id.easy),

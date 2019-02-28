@@ -1,16 +1,13 @@
-package com.example.soccerbuddy;
+package com.madein75.soccerbuddy;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.example.soccerbuddy.model.Match;
 
 public class MainActivity extends AppCompatActivity {
 

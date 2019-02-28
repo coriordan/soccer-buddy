@@ -1,4 +1,4 @@
-package com.example.soccerbuddy;
+package com.madein75.soccerbuddy;
 
 import org.junit.Test;
 

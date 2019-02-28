@@ -1,4 +1,4 @@
-package com.example.soccerbuddy.db;
+package com.madein75.soccerbuddy.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,7 +7,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.model.Match;
 
 import java.util.List;
 @Dao

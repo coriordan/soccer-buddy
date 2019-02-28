@@ -1,4 +1,4 @@
-package com.example.soccerbuddy.widget;
+package com.madein75.soccerbuddy.widget;
 
 import android.content.Context;
 import android.os.Parcel;
@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.soccerbuddy.R;
-import com.example.soccerbuddy.ui.DatePickerWrapper;
-import com.example.soccerbuddy.ui.TimePickerWrapper;
+import com.madein75.soccerbuddy.R;
+import com.madein75.soccerbuddy.ui.TimePickerWrapper;
 
 import java.util.Date;
 

@@ -1,17 +1,17 @@
-package com.example.soccerbuddy.db;
+package com.madein75.soccerbuddy.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.example.soccerbuddy.model.Match;
-import com.example.soccerbuddy.model.SkillLevel;
+import com.madein75.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.model.SkillLevel;
 
 import java.util.Date;
 import java.util.List;
 
-import static com.example.soccerbuddy.db.SoccerBuddyDatabase.MIGRATION_1_2;
+import static com.madein75.soccerbuddy.db.SoccerBuddyDatabase.MIGRATION_1_2;
 
 public class SoccerBuddyRepository {
 

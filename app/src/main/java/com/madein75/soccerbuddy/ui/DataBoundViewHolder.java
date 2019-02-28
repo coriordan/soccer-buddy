@@ -1,10 +1,10 @@
-package com.example.soccerbuddy.ui;
+package com.madein75.soccerbuddy.ui;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.example.soccerbuddy.BR;
+import com.madein75.soccerbuddy.BR;
 
 public class DataBoundViewHolder<P, I> extends RecyclerView.ViewHolder {
 

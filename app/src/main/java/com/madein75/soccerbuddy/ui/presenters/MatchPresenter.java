@@ -1,12 +1,10 @@
-package com.example.soccerbuddy.ui.presenters;
+package com.madein75.soccerbuddy.ui.presenters;
 
-import android.arch.persistence.room.util.StringUtil;
 import android.content.Context;
 
-import com.example.soccerbuddy.model.SkillLevel;
+import com.madein75.soccerbuddy.model.SkillLevel;
 
 import java.text.DateFormat;
-import java.text.Format;
 import java.util.Date;
 
 public class MatchPresenter {

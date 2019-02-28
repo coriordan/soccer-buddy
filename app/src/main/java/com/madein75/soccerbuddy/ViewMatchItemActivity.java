@@ -1,13 +1,13 @@
-package com.example.soccerbuddy;
+package com.madein75.soccerbuddy;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.soccerbuddy.model.Match;
-import com.example.soccerbuddy.databinding.ActivityViewMatchBinding;
-import com.example.soccerbuddy.ui.presenters.MatchPresenter;
+import com.madein75.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.databinding.ActivityViewMatchBinding;
+import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
 
 public class ViewMatchItemActivity extends AppCompatActivity {
 

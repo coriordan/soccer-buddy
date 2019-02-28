@@ -1,4 +1,4 @@
-package com.example.soccerbuddy.ui;
+package com.madein75.soccerbuddy.ui;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LiveData;
@@ -13,9 +13,9 @@ import android.databinding.DataBindingUtil;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-import com.example.soccerbuddy.R;
-import com.example.soccerbuddy.model.Match;
-import com.example.soccerbuddy.ui.presenters.MatchPresenter;
+import com.madein75.soccerbuddy.R;
+import com.madein75.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
 
 import java.util.ArrayList;
 import java.util.Collections;

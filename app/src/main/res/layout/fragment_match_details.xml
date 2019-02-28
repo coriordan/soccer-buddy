@@ -64,7 +64,7 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <com.example.soccerbuddy.widget.DatePickerLayout
+    <com.madein75.soccerbuddy.widget.DatePickerLayout
         android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,9 +73,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_layout" >
 
-    </com.example.soccerbuddy.widget.DatePickerLayout>
+    </com.madein75.soccerbuddy.widget.DatePickerLayout>
 
-    <com.example.soccerbuddy.widget.TimePickerLayout
+    <com.madein75.soccerbuddy.widget.TimePickerLayout
         android:id="@+id/time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" >
 
-    </com.example.soccerbuddy.widget.TimePickerLayout>
+    </com.madein75.soccerbuddy.widget.TimePickerLayout>
 
     <TextView
         android:id="@+id/textView"

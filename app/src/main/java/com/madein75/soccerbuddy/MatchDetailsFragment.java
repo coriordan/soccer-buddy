@@ -1,6 +1,5 @@
-package com.example.soccerbuddy;
+package com.madein75.soccerbuddy;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,14 +12,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.soccerbuddy.model.Match;
-import com.example.soccerbuddy.model.SkillLevel;
-import com.example.soccerbuddy.widget.DatePickerLayout;
-import com.example.soccerbuddy.widget.TimePickerLayout;
-
-import org.w3c.dom.Text;
-
-import java.util.Date;
+import com.madein75.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.model.SkillLevel;
+import com.madein75.soccerbuddy.widget.DatePickerLayout;
+import com.madein75.soccerbuddy.widget.TimePickerLayout;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,10 +1,8 @@
-package com.example.soccerbuddy;
+package com.madein75.soccerbuddy;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
 
-import com.example.soccerbuddy.db.SoccerBuddyDatabase;
-import com.example.soccerbuddy.db.SoccerBuddyRepository;
+import com.madein75.soccerbuddy.db.SoccerBuddyRepository;
 
 public class SoccerBuddyApplication extends Application {
 

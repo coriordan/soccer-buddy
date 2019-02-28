@@ -1,4 +1,4 @@
-package com.example.soccerbuddy.db;
+package com.madein75.soccerbuddy.db;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -8,8 +8,8 @@ import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.migration.Migration;
 import android.support.annotation.NonNull;
 
-import com.example.soccerbuddy.model.Match;
-import com.example.soccerbuddy.model.SkillLevel;
+import com.madein75.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.model.SkillLevel;
 
 import java.util.Date;
 
@@ -45,7 +45,7 @@ public abstract class SoccerBuddyDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE matches "
-                        + " ADD COLUMN kickoffTime INTEGER DEFAULT (datetime('now'))");
+                        + " ADD COLUMN kickoffTime INTEGER");
         }
     };
 

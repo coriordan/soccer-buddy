@@ -1,4 +1,4 @@
-package com.example.soccerbuddy;
+package com.madein75.soccerbuddy;
 
 
 import android.content.Intent;
@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.soccerbuddy.model.Match;
-import com.example.soccerbuddy.ui.DataBoundViewHolder;
-import com.example.soccerbuddy.ui.MatchItemAdapter;
+import com.madein75.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.ui.DataBoundViewHolder;
+import com.madein75.soccerbuddy.ui.MatchItemAdapter;
 
-import static com.example.soccerbuddy.ViewMatchItemActivity.EXTRA_MATCH_ITEM;
+import static com.madein75.soccerbuddy.ViewMatchItemActivity.EXTRA_MATCH_ITEM;
 
 
 /**
