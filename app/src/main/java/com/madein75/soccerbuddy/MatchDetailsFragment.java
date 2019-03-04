@@ -11,11 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.model.SkillLevel;
 import com.madein75.soccerbuddy.widget.DatePickerLayout;
 import com.madein75.soccerbuddy.widget.TimePickerLayout;
+
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,13 +29,13 @@ public class MatchDetailsFragment extends Fragment {
 
     public static final String EXTRA_MATCH_ITEM = "com.example.soccerbuddy.extras.MATCH_ITEM";
 
-    private EditText title;
-    private EditText description;
-    private EditText playersRequired;
-    private DatePickerLayout selectedDate;
-    private TimePickerLayout kickOffTime;
-    private RadioGroup skillLevels;
-    private TextView selectedLevelLabel;
+    private EditText editTextTitle;
+    private EditText editTextDescription;
+    private EditText editTextPlayersRequired;
+    private DatePickerLayout datePickerFixtureDate;
+    private TimePickerLayout timePickerKickOffTime;
+    private RadioGroup radioGroupSkillLevels;
+    private TextView textViewSelectedLevel;
 
     private Match matchItem;
 
@@ -46,48 +51,48 @@ public class MatchDetailsFragment extends Fragment {
                 container,
                 false);
 
-        title = (EditText) details.findViewById(R.id.title);
-        description = (EditText) details.findViewById(R.id.description);
-        playersRequired = (EditText) details.findViewById(R.id.playersRequired);
-        selectedDate = (DatePickerLayout) details.findViewById(R.id.date);
-        kickOffTime = (TimePickerLayout) details.findViewById(R.id.time);
-        skillLevels = (RadioGroup) details.findViewById(R.id.skillLevels);
-        selectedLevelLabel = (TextView) details.findViewById(R.id.selected_level);
+        editTextTitle = details.findViewById(R.id.title);
+        editTextDescription = details.findViewById(R.id.description);
+        editTextPlayersRequired = details.findViewById(R.id.playersRequired);
+        datePickerFixtureDate = details.findViewById(R.id.date);
+        timePickerKickOffTime = details.findViewById(R.id.time);
+        radioGroupSkillLevels = details.findViewById(R.id.skillLevels);
+        textViewSelectedLevel = details.findViewById(R.id.selected_level);
 
-        skillLevels.setOnCheckedChangeListener(
-                new IconPickerWrapper(selectedLevelLabel));
-        skillLevels.check(R.id.easy);
-
-        // create our match model item
-        if (matchItem == null) {
-            matchItem = new Match();
-        }
+        radioGroupSkillLevels.setOnCheckedChangeListener(
+                new IconPickerWrapper(textViewSelectedLevel));
+        radioGroupSkillLevels.check(R.id.easy);
 
         Button addButton = details.findViewById(R.id.saveMatch);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addMatch();
+                saveMatch();
             }
         });
 
         return details;
     }
 
-    private void addMatch() {
-        SoccerBuddyApplication app = (SoccerBuddyApplication) getActivity().getApplication();
+    private void saveMatch() {
+        String title = editTextTitle.getText().toString();
+        String description = editTextDescription.getText().toString();
+        int players = TextUtils.isEmpty(editTextPlayersRequired.getText().toString()) ?
+                0 : Integer.parseInt(editTextPlayersRequired.getText().toString());
+        Date fixtureDate = datePickerFixtureDate.getDate();
+        Date kickOffTime = timePickerKickOffTime.getTime();
+        SkillLevel skillLevel = SkillLevel
+                                    .forIdResource(radioGroupSkillLevels.getCheckedRadioButtonId());
 
-        int players = TextUtils.isEmpty(playersRequired.getText().toString()) ?
-                0 : Integer.parseInt(playersRequired.getText().toString());
+        if (title.trim().isEmpty() || description.trim().isEmpty()) {
+            Toast.makeText(getActivity(), getString(R.string.provide_missing_match_details), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        app.getSoccerBuddyRepository().insertMatch(
-                title.getText().toString(),
-                description.getText().toString(),
-                players,
-                selectedDate.getDate(),
-                kickOffTime.getTime(),
-                SkillLevel.forIdResource(skillLevels.getCheckedRadioButtonId())
-        );
+        CollectionReference matchesRef = FirebaseFirestore.getInstance()
+                .collection("matches");
+
+        matchesRef.add(new Match(title, description, players, new Date(), fixtureDate, kickOffTime, skillLevel.name()));
 
         startActivity(new Intent(this.getActivity(), MainActivity.class));
     }
