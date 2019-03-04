@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_add_match:
                     toolbar.setTitle(R.string.title_add_match);
-                    fragment = new MatchDetailsFragment();
+                    fragment = new AddMatchFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_hosting:

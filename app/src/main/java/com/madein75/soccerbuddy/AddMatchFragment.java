@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,7 +27,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MatchDetailsFragment extends Fragment {
+public class AddMatchFragment extends Fragment {
 
     public static final String EXTRA_MATCH_ITEM = "com.example.soccerbuddy.extras.MATCH_ITEM";
 
@@ -39,7 +41,7 @@ public class MatchDetailsFragment extends Fragment {
 
     private Match matchItem;
 
-    public MatchDetailsFragment() {
+    public AddMatchFragment() {
         // Required empty public constructor
     }
 
@@ -47,7 +49,9 @@ public class MatchDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View details = inflater.inflate(R.layout.fragment_match_details,
+        setHasOptionsMenu(true);
+
+        final View details = inflater.inflate(R.layout.fragment_add_match,
                 container,
                 false);
 
@@ -63,15 +67,24 @@ public class MatchDetailsFragment extends Fragment {
                 new IconPickerWrapper(textViewSelectedLevel));
         radioGroupSkillLevels.check(R.id.easy);
 
-        Button addButton = details.findViewById(R.id.saveMatch);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveMatch();
-            }
-        });
-
         return details;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.new_match_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_note:
+                saveMatch();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void saveMatch() {
