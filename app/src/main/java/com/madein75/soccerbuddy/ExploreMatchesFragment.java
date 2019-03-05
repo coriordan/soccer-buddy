@@ -57,13 +57,17 @@ public class ExploreMatchesFragment extends Fragment {
         adapter.setOnItemClickListener(new MatchAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                Match match = documentSnapshot.toObject(Match.class);
-                String id = documentSnapshot.getId();
-                String path = documentSnapshot.getReference().getPath();
-                Toast.makeText(getActivity(), "Position: " + position + " ID: " + id, Toast.LENGTH_SHORT).show();
+                String matchPath = documentSnapshot.getReference().getPath();
+
+                Intent intent = new Intent(
+                  getContext(),
+                  ViewMatchActivity.class
+                );
+
+                intent.putExtra(ViewMatchActivity.EXTRA_MATCH_PATH, matchPath);
+                startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -76,21 +80,5 @@ public class ExploreMatchesFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
-
-    class ViewMatchItemClickListener
-            implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-//            MatchHolder viewHolder = (MatchHolder) v.getTag();
-//
-//            Intent viewMatchItemActivity = new Intent(
-//                    getContext(),
-//                    ViewMatchItemActivity.class);
-//            viewMatchItemActivity.putExtra(EXTRA_MATCH_ITEM, viewHolder.getItem());
-//            startActivity(viewMatchItemActivity);
-        }
-
     }
 }
