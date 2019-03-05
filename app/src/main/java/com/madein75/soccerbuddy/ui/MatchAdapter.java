@@ -9,18 +9,15 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
 
 public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.MatchHolder> {
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+    private OnItemClickListener onClickListener;
+
     public MatchAdapter(@NonNull FirestoreRecyclerOptions<Match> options) {
         super(options);
     }
@@ -39,7 +36,6 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
     public MatchHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.match_item_layout, viewGroup,false);
-
         return new MatchHolder(v);
     }
 
@@ -48,12 +44,29 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
         TextView textViewDescription;
         TextView textViewFixtureDate;
 
-        public MatchHolder(@NonNull View itemView) {
+        public MatchHolder(@NonNull View itemView ) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.item_title);
             textViewDescription = itemView.findViewById(R.id.item_description);
             textViewFixtureDate = itemView.findViewById(R.id.item_fixture_date);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && onClickListener != null) {
+                        onClickListener.onItemClick(getSnapshots().getSnapshot(position), position);
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onClickListener = listener;
     }
 }
