@@ -14,6 +14,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.madein75.soccerbuddy.model.Match;
+import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
+
+import org.w3c.dom.Text;
 
 public class ViewMatchActivity extends AppCompatActivity {
 
@@ -24,8 +27,12 @@ public class ViewMatchActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference matchRef;
-    private TextView textViewData;
-
+    private TextView textViewTitle;
+    private TextView textViewDescription;
+    private TextView textViewPlayersRequired;
+    private TextView textViewFixtureDate;
+    private TextView textViewKickoffTime;
+    private TextView textViewSkillLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,12 @@ public class ViewMatchActivity extends AppCompatActivity {
             finish(); // must pass a match path to this activity
         }
 
-        textViewData = findViewById(R.id.match_data);
+        textViewTitle = findViewById(R.id.title);
+        textViewDescription = findViewById(R.id.description);
+        textViewPlayersRequired = findViewById(R.id.players_required);
+        textViewFixtureDate = findViewById(R.id.fixture_date);
+        textViewKickoffTime = findViewById(R.id.kickoff_time);
+        textViewSkillLevel = findViewById(R.id.skilllevel);
     }
 
     @Override
@@ -57,7 +69,13 @@ public class ViewMatchActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             Match match = documentSnapshot.toObject(Match.class);
-                            textViewData.setText("Title: " + match.getTitle() + "\n" + "Description: " + match.getDescription());
+
+                            textViewTitle.setText(match.getTitle());
+                            textViewDescription.setText(match.getDescription());
+                            textViewPlayersRequired.setText(MatchPresenter.formatPlayersRequired(match.getPlayersRequired()));
+                            textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
+                            textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
+                            textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
                         }
                     }
                 })
