@@ -3,81 +3,82 @@ package com.madein75.soccerbuddy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.madein75.soccerbuddy.model.Match;
-import com.madein75.soccerbuddy.ui.DataBoundViewHolder;
-import com.madein75.soccerbuddy.ui.MatchItemAdapter;
-
-import static com.madein75.soccerbuddy.ViewMatchItemActivity.EXTRA_MATCH_ITEM;
+import com.madein75.soccerbuddy.ui.MatchAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ExploreMatchesFragment extends Fragment {
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference matchesRef = db.collection("matches");
 
-    MatchItemAdapter mAdapter;
+    private MatchAdapter adapter;
+    RecyclerView recyclerView;
 
-    public ExploreMatchesFragment() {
-        // Required empty public constructor
-    }
-
-
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_explore_matches, container, false);
 
-        SoccerBuddyApplication app = (SoccerBuddyApplication) getActivity().getApplication();
-
-        final RecyclerView matchItems = view.findViewById(R.id.match_items);
-        mAdapter = new MatchItemAdapter(getActivity(),
-                this,
-                app.getSoccerBuddyRepository().getMatches());
-
-        mAdapter.setOnClickListener(new ViewMatchItemClickListener());
-        matchItems.setAdapter(mAdapter);
-
-        SearchView searchView = view.findViewById(R.id.searchView);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                mAdapter.getFilter().filter(s);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                mAdapter.getFilter().filter(s);
-                return false;
-            }
-        });
+        recyclerView = view.findViewById(R.id.match_items);
+        setUpRecyclerView();
 
         return view;
     }
 
-    class ViewMatchItemClickListener
-            implements View.OnClickListener {
+    private void setUpRecyclerView() {
+        Query query = matchesRef.orderBy("fixtureDate", Query.Direction.DESCENDING);
 
-        @Override
-        public void onClick(View v) {
-            DataBoundViewHolder<?, Match> viewHolder =
-                    (DataBoundViewHolder<?, Match>) v.getTag();
+        FirestoreRecyclerOptions<Match> options = new FirestoreRecyclerOptions.Builder<Match>()
+                .setQuery(query, Match.class)
+                .build();
 
-            Intent viewMatchItemActivity = new Intent(
-                    getContext(),
-                    ViewMatchItemActivity.class);
-            viewMatchItemActivity.putExtra(EXTRA_MATCH_ITEM, viewHolder.getItem());
-            startActivity(viewMatchItemActivity);
-        }
+        adapter = new MatchAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new MatchAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                String matchPath = documentSnapshot.getReference().getPath();
+
+                Intent intent = new Intent(
+                  getContext(),
+                  ViewMatchActivity.class
+                );
+
+                intent.putExtra(ViewMatchActivity.EXTRA_MATCH_PATH, matchPath);
+                startActivity(intent);
+            }
+        });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
 }
