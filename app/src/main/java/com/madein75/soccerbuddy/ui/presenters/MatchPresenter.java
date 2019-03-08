@@ -1,7 +1,5 @@
 package com.madein75.soccerbuddy.ui.presenters;
 
-import android.content.Context;
-
 import com.madein75.soccerbuddy.model.SkillLevel;
 
 import java.text.DateFormat;

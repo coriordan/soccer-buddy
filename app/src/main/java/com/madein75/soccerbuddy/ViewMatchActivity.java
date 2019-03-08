@@ -18,6 +18,9 @@ import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
 
 import org.w3c.dom.Text;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ViewMatchActivity extends AppCompatActivity {
 
     public static final String EXTRA_MATCH_PATH =
@@ -27,17 +30,31 @@ public class ViewMatchActivity extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference matchRef;
-    private TextView textViewTitle;
-    private TextView textViewDescription;
-    private TextView textViewPlayersRequired;
-    private TextView textViewFixtureDate;
-    private TextView textViewKickoffTime;
-    private TextView textViewSkillLevel;
+
+    @BindView(R.id.title)
+    TextView textViewTitle;
+
+    @BindView(R.id.description)
+    TextView textViewDescription;
+
+    @BindView(R.id.players_required)
+    TextView textViewPlayersRequired;
+
+    @BindView(R.id.fixture_date)
+    TextView textViewFixtureDate;
+
+    @BindView(R.id.kickoff_time)
+    TextView textViewKickoffTime;
+
+    @BindView(R.id.skilllevel)
+    TextView textViewSkillLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_match);
+
+        ButterKnife.bind(this);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle(R.string.play_match);
@@ -50,13 +67,6 @@ public class ViewMatchActivity extends AppCompatActivity {
             Toast.makeText(ViewMatchActivity.this, "Must pass a match", Toast.LENGTH_SHORT).show();
             finish(); // must pass a match path to this activity
         }
-
-        textViewTitle = findViewById(R.id.title);
-        textViewDescription = findViewById(R.id.description);
-        textViewPlayersRequired = findViewById(R.id.players_required);
-        textViewFixtureDate = findViewById(R.id.fixture_date);
-        textViewKickoffTime = findViewById(R.id.kickoff_time);
-        textViewSkillLevel = findViewById(R.id.skilllevel);
     }
 
     @Override

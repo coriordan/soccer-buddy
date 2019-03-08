@@ -14,6 +14,9 @@ import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.MatchHolder> {
 
     private OnItemClickListener onClickListener;
@@ -24,11 +27,7 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
 
     @Override
     protected void onBindViewHolder(@NonNull MatchHolder holder, int position, @NonNull Match model) {
-        MatchPresenter presenter = new MatchPresenter();
-
-        holder.textViewTitle.setText(model.getTitle());
-        holder.textViewDescription.setText(model.getDescription());
-        holder.textViewFixtureDate.setText(presenter.formatDate(model.getFixtureDate()));
+        holder.bind(model);
     }
 
     @NonNull
@@ -40,15 +39,25 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
     }
 
     class MatchHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.item_title)
         TextView textViewTitle;
+
+        @BindView(R.id.item_description)
         TextView textViewDescription;
+
+        @BindView(R.id.item_fixture_date)
         TextView textViewFixtureDate;
 
         public MatchHolder(@NonNull View itemView ) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.item_title);
-            textViewDescription = itemView.findViewById(R.id.item_description);
-            textViewFixtureDate = itemView.findViewById(R.id.item_fixture_date);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(final Match match) {
+            textViewTitle.setText(match.getTitle());
+            textViewDescription.setText(match.getDescription());
+            textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
