@@ -24,8 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.activity.SignInActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

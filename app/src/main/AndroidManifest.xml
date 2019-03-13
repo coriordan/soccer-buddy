@@ -12,15 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SignInActivity"></activity>
+        <activity android:name=".activity.SignInActivity" />
         <activity
             android:name=".activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,9 +28,7 @@
             android:name=".activity.ViewMatchActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"></activity>
+            android:name=".activity.MainActivity" />
     </application>
 
 </manifest>
