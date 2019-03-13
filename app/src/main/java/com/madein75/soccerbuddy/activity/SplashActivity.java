@@ -9,7 +9,7 @@ import com.madein75.soccerbuddy.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 2000;
     private boolean isBackButtonPressed;
 
     @Override
