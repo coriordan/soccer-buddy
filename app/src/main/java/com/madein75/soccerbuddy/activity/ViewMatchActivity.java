@@ -1,10 +1,9 @@
-package com.madein75.soccerbuddy;
+package com.madein75.soccerbuddy.activity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,10 +12,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

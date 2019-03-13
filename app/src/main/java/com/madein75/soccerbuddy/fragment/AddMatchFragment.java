@@ -1,4 +1,4 @@
-package com.madein75.soccerbuddy;
+package com.madein75.soccerbuddy.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.madein75.soccerbuddy.activity.MainActivity;
+import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.model.SkillLevel;
 import com.madein75.soccerbuddy.widget.DatePickerLayout;

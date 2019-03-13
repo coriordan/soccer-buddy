@@ -1,4 +1,4 @@
-package com.madein75.soccerbuddy;
+package com.madein75.soccerbuddy.activity;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.madein75.soccerbuddy.R;
+import com.madein75.soccerbuddy.fragment.AddMatchFragment;
+import com.madein75.soccerbuddy.fragment.ExploreMatchesFragment;
+import com.madein75.soccerbuddy.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,8 +1,9 @@
-package com.madein75.soccerbuddy;
+package com.madein75.soccerbuddy.fragment;
 
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -12,15 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.madein75.soccerbuddy.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +55,9 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.textViewEmail)
     TextView textViewEmail;
+
+    @BindView(R.id.imageViewProfile)
+    ImageView imageProfile;
 
     private Unbinder unbinder;
 
@@ -104,6 +111,7 @@ public class ProfileFragment extends Fragment {
             btnSignOut.setVisibility(View.GONE);
             textViewEmail.setVisibility(View.GONE);
             textViewUser.setVisibility(View.GONE);
+            imageProfile.setImageBitmap(null);
         } else {
             btnSignIn.setVisibility(View.GONE);
             btnSignOut.setVisibility(View.VISIBLE);
@@ -112,6 +120,9 @@ public class ProfileFragment extends Fragment {
 
             textViewEmail.setText(user.getDisplayName());
             textViewEmail.setText(user.getEmail());
+            Glide.with(getActivity())
+                    .load(user.getPhotoUrl())
+                    .into(imageProfile);
         }
     }
 
