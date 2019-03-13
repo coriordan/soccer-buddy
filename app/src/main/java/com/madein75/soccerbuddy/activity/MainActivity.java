@@ -1,5 +1,6 @@
 package com.madein75.soccerbuddy.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.fragment.AddMatchFragment;
 import com.madein75.soccerbuddy.fragment.ExploreMatchesFragment;
@@ -19,10 +21,15 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBar toolbar;
     private FirebaseAuth auth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        checkIsSignedIn();
+
         setContentView(R.layout.activity_main);
 
         toolbar = getSupportActionBar();
@@ -75,4 +82,11 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    private void checkIsSignedIn() {
+        if (currentUser == null) {
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return;
+        }
+    }
 }

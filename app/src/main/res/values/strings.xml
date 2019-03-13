@@ -29,4 +29,5 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="logo_description">SoccerBuddy logo</string>
+    <string name="sign_in_instruction">Sign in to use SoccerBuddy</string>
 </resources>
