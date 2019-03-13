@@ -1,11 +1,8 @@
 package com.madein75.soccerbuddy.fragment;
 
-
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.madein75.soccerbuddy.R;
+import com.madein75.soccerbuddy.activity.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +38,11 @@ import butterknife.Unbinder;
  */
 public class ProfileFragment extends Fragment {
 
+    private static final String TAG = ProfileFragment.class.getName();
+
     private static final int RC_SIGN_IN = 1138;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
-
-    @BindView(R.id.buttonSignIn)
-    Button btnSignIn;
 
     @BindView(R.id.buttonSignOut)
     Button btnSignOut;
@@ -107,13 +104,11 @@ public class ProfileFragment extends Fragment {
     private void updateUi() {
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) {
-            btnSignIn.setVisibility(View.VISIBLE);
             btnSignOut.setVisibility(View.GONE);
             textViewEmail.setVisibility(View.GONE);
             textViewUser.setVisibility(View.GONE);
             imageProfile.setImageBitmap(null);
         } else {
-            btnSignIn.setVisibility(View.GONE);
             btnSignOut.setVisibility(View.VISIBLE);
             textViewEmail.setVisibility(View.VISIBLE);
             textViewUser.setVisibility(View.VISIBLE);
@@ -140,34 +135,20 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.buttonSignIn)
-    public void signIn(View view) {
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(false)
-                        .setAvailableProviders(getAuthenticationProviders())
-                        .build(),
-                RC_SIGN_IN);
-    }
-
     @OnClick(R.id.buttonSignOut)
     public void signOut(View view) {
         AuthUI.getInstance()
                 .signOut(getActivity())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getActivity(), "Signed out succesfully ... ", Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            startActivity(new Intent(getActivity(), SignInActivity.class));
+                            getActivity().finish();
+                        } else {
+                            Log.w(TAG, "signOut:failure", task.getException());
+                            // showSnackbar(R.string.sign_out_failed);
+                        }
                     }
                 });
-    }
-
-    private List<AuthUI.IdpConfig> getAuthenticationProviders() {
-        List<AuthUI.IdpConfig> authenticationProviders = new ArrayList<>();
-
-        authenticationProviders.add(new AuthUI.IdpConfig.GoogleBuilder().build());
-        authenticationProviders.add(new AuthUI.IdpConfig.EmailBuilder().build());
-
-        return authenticationProviders;
     }
 }
