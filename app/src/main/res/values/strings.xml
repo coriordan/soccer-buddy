@@ -23,4 +23,11 @@
     <string name="lbl_skill_level">Skill Level</string>
     <string name="label_fixture_time">Kickoff time</string>
     <string name="provide_missing_match_details">Please insert a title and description</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="logo_description">SoccerBuddy logo</string>
+    <string name="sign_in_instruction">Sign in to use SoccerBuddy</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.madein75.soccerbuddy;
+package com.madein75.soccerbuddy.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.madein75.soccerbuddy.activity.MainActivity;
+import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.model.SkillLevel;
 import com.madein75.soccerbuddy.widget.DatePickerLayout;
@@ -24,22 +26,42 @@ import com.madein75.soccerbuddy.widget.TimePickerLayout;
 
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AddMatchFragment extends Fragment {
 
+    private static final String TAG = AddMatchFragment.class.getName();
     public static final String EXTRA_MATCH_ITEM = "com.example.soccerbuddy.extras.MATCH_ITEM";
 
-    private EditText editTextTitle;
-    private EditText editTextDescription;
-    private EditText editTextPlayersRequired;
-    private DatePickerLayout datePickerFixtureDate;
-    private TimePickerLayout timePickerKickOffTime;
-    private RadioGroup radioGroupSkillLevels;
-    private TextView textViewSelectedLevel;
+    @BindView(R.id.title)
+    EditText editTextTitle;
+
+    @BindView(R.id.description)
+    EditText editTextDescription;
+
+    @BindView(R.id.playersRequired)
+    EditText editTextPlayersRequired;
+
+    @BindView(R.id.date)
+    DatePickerLayout datePickerFixtureDate;
+
+    @BindView(R.id.time)
+    TimePickerLayout timePickerKickOffTime;
+
+    @BindView(R.id.skillLevels)
+    RadioGroup radioGroupSkillLevels;
+
+    @BindView(R.id.selected_level)
+    TextView textViewSelectedLevel;
 
     private Match matchItem;
+
+    private Unbinder unbinder;
 
     public AddMatchFragment() {
         // Required empty public constructor
@@ -51,23 +73,16 @@ public class AddMatchFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        final View details = inflater.inflate(R.layout.fragment_add_match,
-                container,
-                false);
+        final View view = inflater.inflate(R.layout.fragment_add_match,
+                container, false);
 
-        editTextTitle = details.findViewById(R.id.title);
-        editTextDescription = details.findViewById(R.id.description);
-        editTextPlayersRequired = details.findViewById(R.id.playersRequired);
-        datePickerFixtureDate = details.findViewById(R.id.date);
-        timePickerKickOffTime = details.findViewById(R.id.time);
-        radioGroupSkillLevels = details.findViewById(R.id.skillLevels);
-        textViewSelectedLevel = details.findViewById(R.id.selected_level);
+        unbinder = ButterKnife.bind(this, view);
 
         radioGroupSkillLevels.setOnCheckedChangeListener(
                 new IconPickerWrapper(textViewSelectedLevel));
         radioGroupSkillLevels.check(R.id.easy);
 
-        return details;
+        return view;
     }
 
     @Override
@@ -85,6 +100,12 @@ public class AddMatchFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     private void saveMatch() {
@@ -107,7 +128,7 @@ public class AddMatchFragment extends Fragment {
 
         matchesRef.add(new Match(title, description, players, new Date(), fixtureDate, kickOffTime, skillLevel.name()));
 
-        startActivity(new Intent(this.getActivity(), MainActivity.class));
+        getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
     }
 
     class IconPickerWrapper implements RadioGroup.OnCheckedChangeListener {
