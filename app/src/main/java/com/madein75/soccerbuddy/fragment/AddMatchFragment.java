@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.madein75.soccerbuddy.activity.MainActivity;
@@ -126,7 +128,17 @@ public class AddMatchFragment extends Fragment {
         CollectionReference matchesRef = FirebaseFirestore.getInstance()
                 .collection("matches");
 
-        matchesRef.add(new Match(title, description, players, new Date(), fixtureDate, kickOffTime, skillLevel.name()));
+        Match match = new Match(
+                FirebaseAuth.getInstance().getCurrentUser(),
+                title,
+                description,
+                players,
+                new Date(),
+                fixtureDate,
+                kickOffTime,
+                skillLevel.name());
+
+        matchesRef.add(match);
 
         getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
     }

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 
 public class Match {
 
+    private String ownerId;
     private String title;
     private String description;
     private int playersRequired;
@@ -21,13 +23,16 @@ public class Match {
 
     public Match() {} // required by Firebase
 
-    public Match(String title,
-                 String description,
-                 int playersRequired,
-                 Date createdAt,
-                 Date fixtureDate,
-                 Date kickoffTime,
-                 String skillLevel) {
+    public Match(
+                FirebaseUser owner,
+                String title,
+                String description,
+                int playersRequired,
+                Date createdAt,
+                Date fixtureDate,
+                Date kickoffTime,
+                String skillLevel) {
+        this.ownerId = owner.getUid();
         this.title = title;
         this.description = description;
         this.playersRequired = playersRequired;
@@ -35,6 +40,14 @@ public class Match {
         this.fixtureDate = fixtureDate;
         this.kickoffTime = kickoffTime;
         this.skillLevel = SkillLevel.valueOf(skillLevel);
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getTitle() {
