@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.fragment.AddMatchFragment;
 import com.madein75.soccerbuddy.fragment.ExploreMatchesFragment;
+import com.madein75.soccerbuddy.fragment.HostingMatchesFragment;
 import com.madein75.soccerbuddy.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_hosting:
                     toolbar.setTitle(R.string.title_hosting);
+                    fragment = new HostingMatchesFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
                     toolbar.setTitle(R.string.title_profile);
