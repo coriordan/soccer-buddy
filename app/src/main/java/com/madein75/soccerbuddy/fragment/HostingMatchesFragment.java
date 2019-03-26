@@ -27,7 +27,7 @@ public class HostingMatchesFragment extends Fragment {
 
     private static final String TAG = HostingMatchesFragment.class.getName();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference matchesRef = db.collection("matches");
+    private CollectionReference matchesRef = db.collection("Matches");
 
     private HostedMatchAdapter adapter;
     RecyclerView recyclerView;
@@ -45,7 +45,9 @@ public class HostingMatchesFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        Query query = matchesRef.orderBy("fixtureDate", Query.Direction.ASCENDING);
+        Query query = matchesRef
+                .whereEqualTo("ownerId", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .orderBy("fixtureDate", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Match> options = new FirestoreRecyclerOptions.Builder<Match>()
                 .setQuery(query, Match.class)

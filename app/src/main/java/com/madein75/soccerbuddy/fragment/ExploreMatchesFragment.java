@@ -27,7 +27,7 @@ import com.madein75.soccerbuddy.ui.MatchAdapter;
  */
 public class ExploreMatchesFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference matchesRef = db.collection("matches");
+    private CollectionReference matchesRef = db.collection("Matches");
 
     private MatchAdapter adapter;
     RecyclerView recyclerView;
