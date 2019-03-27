@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_playing"
         android:icon="@drawable/ic_playing"
-        android:title="@string/title_playing" />
+        android:title="@string/menu_playing" />
 
     <item
         android:id="@+id/navigation_add_match"
@@ -19,7 +19,7 @@
     <item
         android:id="@+id/navigation_hosting"
         android:icon="@drawable/ic_hosting"
-        android:title="@string/title_hosting" />
+        android:title="@string/menu_hosting" />
 
     <item
         android:id="@+id/navigation_profile"
