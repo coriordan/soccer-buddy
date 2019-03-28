@@ -20,6 +20,7 @@ public class Match {
     private Date fixtureDate;
     private Date kickoffTime;
     private SkillLevel skillLevel;
+    private int playersJoined;
 
     public Match() {} // required by Firebase
 
@@ -40,6 +41,7 @@ public class Match {
         this.fixtureDate = fixtureDate;
         this.kickoffTime = kickoffTime;
         this.skillLevel = SkillLevel.valueOf(skillLevel);
+        this.playersJoined = 0;
     }
 
     public String getOwnerId() {
@@ -75,6 +77,14 @@ public class Match {
 
     public String getSkillLevel() {
         return skillLevel.name();
+    }
+
+    public int getPlayersJoined() {
+        return playersJoined;
+    }
+
+    public void setPlayersJoined(int playersJoined) {
+        this.playersJoined = playersJoined;
     }
 
     @Exclude
