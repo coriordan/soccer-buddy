@@ -3,7 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="label_title">Title</string>
-    <string name="label_players">Players</string>
+    <string name="label_players">Players required</string>
     <string name="label_description">Description</string>
     <string name="label_fixture_date">Fixture date</string>
     <string name="description_easy">Easy</string>

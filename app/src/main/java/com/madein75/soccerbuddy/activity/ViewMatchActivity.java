@@ -97,7 +97,8 @@ public class ViewMatchActivity extends AppCompatActivity {
 
                             textViewTitle.setText(match.getTitle());
                             textViewDescription.setText(match.getDescription());
-                            textViewPlayersRequired.setText(MatchPresenter.formatPlayersRequired(match.getPlayersRequired()));
+                            textViewPlayersRequired.setText(MatchPresenter
+                                        .formatPlayersRequired(match.getPlayersRequired() - match.getPlayersJoined()));
                             textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
                             textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
                             textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
