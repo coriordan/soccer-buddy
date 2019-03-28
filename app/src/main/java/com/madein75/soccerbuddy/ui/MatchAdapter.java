@@ -33,8 +33,10 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
     @NonNull
     @Override
     public MatchHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.match_item_layout, viewGroup,false);
+        View v = LayoutInflater
+                        .from(viewGroup.getContext())
+                        .inflate(R.layout.match_item_layout, viewGroup,false);
+
         return new MatchHolder(v);
     }
 

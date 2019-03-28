@@ -126,7 +126,7 @@ public class AddMatchFragment extends Fragment {
         }
 
         CollectionReference matchesRef = FirebaseFirestore.getInstance()
-                .collection("matches");
+                .collection("Matches");
 
         Match match = new Match(
                 FirebaseAuth.getInstance().getCurrentUser(),

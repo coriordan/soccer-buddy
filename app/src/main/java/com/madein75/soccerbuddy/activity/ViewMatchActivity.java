@@ -4,11 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,6 +49,9 @@ public class ViewMatchActivity extends AppCompatActivity {
     @BindView(R.id.skilllevel)
     TextView textViewSkillLevel;
 
+    @BindView(R.id.button_join)
+    Button buttonJoin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +89,11 @@ public class ViewMatchActivity extends AppCompatActivity {
                             textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
                             textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
                             textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
+
+                            if (match.getOwnerId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                buttonJoin.setEnabled(false); // disable if current user is also owner
+                            }
+
                         }
                     }
                 })

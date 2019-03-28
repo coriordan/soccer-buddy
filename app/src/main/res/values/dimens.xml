@@ -5,4 +5,5 @@
     <dimen name="match_preview_height">80dp</dimen>
     <dimen name="allowance_overview_label_min_width">50dp</dimen>
     <dimen name="dimen_20">20dp</dimen>
+    <dimen name="thumbnail">80dp</dimen>
 </resources>
