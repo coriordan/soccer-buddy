@@ -26,6 +26,7 @@ import com.madein75.soccerbuddy.model.SkillLevel;
 import com.madein75.soccerbuddy.widget.DatePickerLayout;
 import com.madein75.soccerbuddy.widget.TimePickerLayout;
 
+import java.util.Collections;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -136,7 +137,8 @@ public class AddMatchFragment extends Fragment {
                 new Date(),
                 fixtureDate,
                 kickOffTime,
-                skillLevel.name());
+                skillLevel.name(),
+                Collections.<String>emptyList());
 
         matchesRef.add(match);
 
