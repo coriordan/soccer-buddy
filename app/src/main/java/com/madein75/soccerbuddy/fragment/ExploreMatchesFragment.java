@@ -56,14 +56,14 @@ public class ExploreMatchesFragment extends Fragment {
         adapter.setOnItemClickListener(new MatchAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                String matchPath = documentSnapshot.getReference().getPath();
+                String matchId = documentSnapshot.getReference().getId();
 
                 Intent intent = new Intent(
                   getContext(),
                   ViewMatchActivity.class
                 );
 
-                intent.putExtra(ViewMatchActivity.EXTRA_MATCH_PATH, matchPath);
+                intent.putExtra(ViewMatchActivity.EXTRA_MATCH_ID, matchId);
                 startActivity(intent);
             }
         });

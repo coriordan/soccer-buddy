@@ -9,6 +9,7 @@ import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 public class Match {
 
@@ -20,6 +21,8 @@ public class Match {
     private Date fixtureDate;
     private Date kickoffTime;
     private SkillLevel skillLevel;
+    List<String> players;
+
 
     public Match() {} // required by Firebase
 
@@ -31,7 +34,8 @@ public class Match {
                 Date createdAt,
                 Date fixtureDate,
                 Date kickoffTime,
-                String skillLevel) {
+                String skillLevel,
+                List<String> players) {
         this.ownerId = owner.getUid();
         this.title = title;
         this.description = description;
@@ -40,6 +44,7 @@ public class Match {
         this.fixtureDate = fixtureDate;
         this.kickoffTime = kickoffTime;
         this.skillLevel = SkillLevel.valueOf(skillLevel);
+        this.players = players;
     }
 
     public String getOwnerId() {
@@ -77,8 +82,27 @@ public class Match {
         return skillLevel.name();
     }
 
+    public List<String> getPlayers() {
+        return players;
+    }
+
+    @Exclude
+    public boolean isFull() {
+        return this.getPlayersRequired() == this.getPlayersJoined();
+    }
+
+    @Exclude
+    public int getPlayersJoined() {
+        return players.size();
+    }
+
     @Exclude
     public SkillLevel getSkillLevelVal() {return skillLevel; }
+
+    @Exclude
+    public int getPlacesAvailable() {
+        return this.getPlayersRequired() - this.getPlayersJoined();
+    }
 
     @Exclude
     public boolean isValid() {
