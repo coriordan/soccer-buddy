@@ -36,7 +36,7 @@ public class MatchPresenter {
         return level.toString().toLowerCase();
     }
 
-    public static String formatPlayersRequired(int players) {
-        return Integer.toString(players);
+    public static String formatPlacesAvailable(int places) {
+        return Integer.toString(places);
     }
 }
