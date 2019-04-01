@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Transaction;
@@ -88,34 +90,21 @@ public class ViewMatchActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        matchRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            Match match = documentSnapshot.toObject(Match.class);
+        matchRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Toast.makeText(ViewMatchActivity.this, "Error while loading!", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, e.toString());
+                    return;
+                }
 
-                            textViewTitle.setText(match.getTitle());
-                            textViewDescription.setText(match.getDescription());
-                            textViewPlayersRequired.setText(MatchPresenter
-                                        .formatPlayersRequired(match.getPlayersRequired() - match.getPlayersJoined()));
-                            textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
-                            textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
-                            textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
-
-                            if (match.getOwnerId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                                buttonJoinMatch.setEnabled(false); // disable if current user is also owner
-                            }
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ViewMatchActivity.this, "Error!", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, e.toString());
-                    }
-                });
+                if (documentSnapshot.exists()) {
+                    Match match = documentSnapshot.toObject(Match.class);
+                    loadMatch(match);
+                }
+            }
+        });
     }
 
     @OnClick(R.id.button_join_match)
@@ -130,6 +119,7 @@ public class ViewMatchActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.w(TAG, "Add membership failed", e);
+                Toast.makeText(ViewMatchActivity.this, "Error while joining match!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -139,21 +129,46 @@ public class ViewMatchActivity extends AppCompatActivity {
             @Nullable
             @Override
             public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                 // create reference for new membership
                 DocumentReference membershipRef = db
                         .collection("Memberships").document();
 
                 DocumentSnapshot matchSnapshot = transaction.get(matchRef);
-                Membership membership = new Membership(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                Membership membership = new Membership(currentUserId,
                         matchSnapshot.getId(),
                         new Date());
 
                 // update no. players playing match
-                long newJoinedCount = matchSnapshot.getLong("playersJoined") + 1;
-                transaction.update(matchRef, "playersJoined", newJoinedCount);
+                transaction.update(matchRef, "players", FieldValue.arrayUnion(currentUserId));
                 transaction.set(membershipRef, membership);
                 return null;
             }
         });
+    }
+
+    private void loadMatch(Match match) {
+        textViewTitle.setText(match.getTitle());
+        textViewDescription.setText(match.getDescription());
+        textViewPlayersRequired.setText(MatchPresenter
+                .formatPlacesAvailable(match.getPlacesAvailable()));
+        textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
+        textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
+        textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
+
+        buttonJoinMatch.setEnabled(canUserJoinMatch(match)); // disable if current user is also owner
+    }
+
+    private boolean canUserJoinMatch(Match match) {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        if (match.getOwnerId().equals(currentUserId)
+            || match.getPlayers().contains(currentUserId)
+            || match.isFull()) {
+            return false;
+        }
+
+        return true;
     }
 }
