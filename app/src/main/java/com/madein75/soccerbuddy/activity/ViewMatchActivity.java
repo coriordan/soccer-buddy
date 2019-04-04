@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -24,8 +25,10 @@ import com.google.firebase.firestore.Transaction;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.model.Membership;
+import com.madein75.soccerbuddy.model.Player;
 import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
 
+import java.util.Collection;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -101,7 +104,7 @@ public class ViewMatchActivity extends AppCompatActivity {
 
                 if (documentSnapshot.exists()) {
                     Match match = documentSnapshot.toObject(Match.class);
-                    loadMatch(match);
+                    updateUI(match);
                 }
             }
         });
@@ -130,25 +133,35 @@ public class ViewMatchActivity extends AppCompatActivity {
             @Override
             public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                 String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String currentUserName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
+                // get players sub-collection
+                CollectionReference playersCollection = matchRef.collection("Players");
 
                 // create reference for new membership
                 DocumentReference membershipRef = db
                         .collection("Memberships").document();
 
+                // create the membership object
                 DocumentSnapshot matchSnapshot = transaction.get(matchRef);
                 Membership membership = new Membership(currentUserId,
                         matchSnapshot.getId(),
                         new Date());
 
                 // update no. players playing match
-                transaction.update(matchRef, "players", FieldValue.arrayUnion(currentUserId));
+                transaction.update(matchRef, "players",
+                                            FieldValue.arrayUnion(currentUserId));
+                // set current user as player
+                transaction.set(playersCollection.document(currentUserId),
+                                            new Player(currentUserName));
+                // set membership of match
                 transaction.set(membershipRef, membership);
                 return null;
             }
         });
     }
 
-    private void loadMatch(Match match) {
+    private void updateUI(Match match) {
         textViewTitle.setText(match.getTitle());
         textViewDescription.setText(match.getDescription());
         textViewPlayersRequired.setText(MatchPresenter
@@ -157,18 +170,13 @@ public class ViewMatchActivity extends AppCompatActivity {
         textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
         textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
 
-        buttonJoinMatch.setEnabled(canUserJoinMatch(match)); // disable if current user is also owner
-    }
-
-    private boolean canUserJoinMatch(Match match) {
+        // determine if we can enable the 'Join Match' button
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        if (match.getOwnerId().equals(currentUserId)
-            || match.getPlayers().contains(currentUserId)
-            || match.isFull()) {
-            return false;
+        if (match.getPlayers().contains(currentUserId)
+                || match.getOwnerId().equals(currentUserId)
+                || match.isFull()) {
+            buttonJoinMatch.setEnabled(false);
         }
-
-        return true;
     }
 }
