@@ -1,6 +1,7 @@
 package com.madein75.soccerbuddy.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -14,13 +15,19 @@ import android.view.ViewGroup;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.madein75.soccerbuddy.R;
+import com.madein75.soccerbuddy.activity.ViewMatchActivity;
+import com.madein75.soccerbuddy.activity.ViewPlayersActivity;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.ui.HostedMatchAdapter;
+import com.madein75.soccerbuddy.ui.OnItemClickListener;
 
 import javax.annotation.Nullable;
+
+import static com.madein75.soccerbuddy.SoccerBuddyApplication.EXTRA_MATCH_ID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +68,21 @@ public class HostingMatchesFragment extends Fragment {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                                                         DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                String matchId = documentSnapshot.getReference().getId();
+
+                Intent intent = new Intent(
+                        getContext(),
+                        ViewPlayersActivity.class
+                );
+
+                intent.putExtra(EXTRA_MATCH_ID, matchId);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

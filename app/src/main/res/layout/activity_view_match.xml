@@ -56,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -116,7 +117,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -201,13 +203,13 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-condensed"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="Join Match" />
+        android:text="@string/join_match" />
 
 </RelativeLayout>

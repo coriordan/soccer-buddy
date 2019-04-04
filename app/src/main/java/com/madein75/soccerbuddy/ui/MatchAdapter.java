@@ -73,10 +73,6 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(DocumentSnapshot documentSnapshot, int position);
-    }
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onClickListener = listener;
     }

@@ -21,6 +21,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,7 +29,9 @@
             android:name=".activity.ViewMatchActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.MainActivity" />
+            android:name=".activity.ViewPlayersActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

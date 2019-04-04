@@ -35,10 +35,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ViewMatchActivity extends AppCompatActivity {
+import static com.madein75.soccerbuddy.SoccerBuddyApplication.EXTRA_MATCH_ID;
 
-    public static final String EXTRA_MATCH_ID =
-            "com.madein75.soccerbuddy.extras.MATCH_ID";
+public class ViewMatchActivity extends AppCompatActivity {
 
     private static final String TAG = ViewMatchActivity.class.getName();
 

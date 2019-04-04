@@ -36,4 +36,6 @@
     <string name="sign_out">Sign Out</string>
     <string name="logo_description">SoccerBuddy logo</string>
     <string name="sign_in_instruction">Sign in to use SoccerBuddy</string>
+    <string name="view_players">View players</string>
+    <string name="join_match">Join Match</string>
 </resources>
