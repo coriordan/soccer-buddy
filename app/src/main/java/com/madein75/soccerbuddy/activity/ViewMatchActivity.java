@@ -133,6 +133,8 @@ public class ViewMatchActivity extends AppCompatActivity {
             public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                 String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 String currentUserName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                String currentThumbnailUrl = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
+
 
                 // get players sub-collection
                 CollectionReference playersCollection = matchRef.collection("Players");
@@ -152,7 +154,7 @@ public class ViewMatchActivity extends AppCompatActivity {
                                             FieldValue.arrayUnion(currentUserId));
                 // set current user as player
                 transaction.set(playersCollection.document(currentUserId),
-                                            new Player(currentUserName));
+                                            new Player(currentUserName, currentThumbnailUrl));
                 // set membership of match
                 transaction.set(membershipRef, membership);
                 return null;
