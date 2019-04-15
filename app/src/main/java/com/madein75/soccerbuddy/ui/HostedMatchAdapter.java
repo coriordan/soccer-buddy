@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
@@ -18,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HostedMatchAdapter extends FirestoreRecyclerAdapter<Match, HostedMatchAdapter.HostedMatchHolder> {
+
+    private OnItemClickListener onClickListener;
 
     public HostedMatchAdapter(@NonNull FirestoreRecyclerOptions<Match> options) {
         super(options);
@@ -57,6 +60,20 @@ public class HostedMatchAdapter extends FirestoreRecyclerAdapter<Match, HostedMa
         public void bind(final Match match) {
             textViewTitle.setText(match.getTitle());
             textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && onClickListener != null) {
+                        onClickListener.onItemClick(getSnapshots().getSnapshot(position), position);
+                    }
+                }
+            });
         }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onClickListener = listener;
     }
 }

@@ -20,7 +20,9 @@ import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.activity.ViewMatchActivity;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.ui.MatchAdapter;
+import com.madein75.soccerbuddy.ui.OnItemClickListener;
 
+import static com.madein75.soccerbuddy.SoccerBuddyApplication.EXTRA_MATCH_ID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +55,7 @@ public class ExploreMatchesFragment extends Fragment {
         adapter = new MatchAdapter(options);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new MatchAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 String matchId = documentSnapshot.getReference().getId();
@@ -63,7 +65,7 @@ public class ExploreMatchesFragment extends Fragment {
                   ViewMatchActivity.class
                 );
 
-                intent.putExtra(ViewMatchActivity.EXTRA_MATCH_ID, matchId);
+                intent.putExtra(EXTRA_MATCH_ID, matchId);
                 startActivity(intent);
             }
         });

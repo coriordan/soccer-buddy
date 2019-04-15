@@ -23,7 +23,6 @@ public class Match {
     private SkillLevel skillLevel;
     List<String> players;
 
-
     public Match() {} // required by Firebase
 
     public Match(
