@@ -2,6 +2,7 @@ package com.madein75.soccerbuddy;
 
 import android.app.Application;
 import android.app.DownloadManager;
+import android.location.Location;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -20,6 +21,8 @@ public class SoccerBuddyApplication extends Application {
 
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
+    public Location currentLocation;
+
 
     private static SoccerBuddyApplication instance;
 

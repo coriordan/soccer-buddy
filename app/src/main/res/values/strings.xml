@@ -29,7 +29,7 @@
     <string name="lbl_skill_level">Skill Level</string>
     <string name="label_fixture_time">Kickoff time</string>
     <string name="provide_missing_match_details">Please insert a title and description</string>
-
+    <string name="label_location">Match location</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_in">Sign In</string>
