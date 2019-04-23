@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.GeoPoint;
@@ -85,7 +86,8 @@ public class Match {
         return skillLevel.name();
     }
 
-    public GeoPoint getLocation() {return this.location;}
+    public LatLng getLocation() {return new LatLng(this.location.getLatitude(),
+                                                    this.location.getLongitude());}
 
     public List<String> getPlayers() {
         return players;

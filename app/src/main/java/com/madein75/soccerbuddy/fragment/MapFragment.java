@@ -52,6 +52,8 @@ public class MapFragment extends SupportMapFragment implements
     private long FASTEST_INTERVAL = 1000; /* 1 sec */
     private float                       zoom = 13f;
     private LatLng location;
+    private boolean readOnly = false;
+
 
     private static final int PERMISSION_REQUEST_CODE = 200;
 
@@ -232,17 +234,26 @@ public class MapFragment extends SupportMapFragment implements
 
     @Override
     public void onMapClick(LatLng latLng) {
-        map.clear();
-
-        MarkerOptions marker = new MarkerOptions().position(latLng);
-
-        map.addMarker(marker);
-
-        this.location = latLng;
+        if (!readOnly) {
+            map.clear();
+            addMapLocation(latLng);
+            this.location = latLng;
+        }
     }
+
+    public void setReadOnly() { readOnly = true; }
 
     public LatLng getMarkedLocation() {
         return location;
+    }
+
+    public void setMarkedLocation(LatLng location) {
+        addMapLocation(location);
+    }
+
+    private void addMapLocation(LatLng location) {
+        MarkerOptions marker = new MarkerOptions().position(location);
+        map.addMarker(marker);
     }
 
 }
