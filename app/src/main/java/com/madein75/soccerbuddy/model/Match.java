@@ -4,8 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -21,6 +23,7 @@ public class Match {
     private Date fixtureDate;
     private Date kickoffTime;
     private SkillLevel skillLevel;
+    private GeoPoint location;
     List<String> players;
 
     public Match() {} // required by Firebase
@@ -34,6 +37,7 @@ public class Match {
                 Date fixtureDate,
                 Date kickoffTime,
                 String skillLevel,
+                GeoPoint location,
                 List<String> players) {
         this.ownerId = owner.getUid();
         this.title = title;
@@ -43,6 +47,7 @@ public class Match {
         this.fixtureDate = fixtureDate;
         this.kickoffTime = kickoffTime;
         this.skillLevel = SkillLevel.valueOf(skillLevel);
+        this.location = location;
         this.players = players;
     }
 
@@ -80,6 +85,9 @@ public class Match {
     public String getSkillLevel() {
         return skillLevel.name();
     }
+
+    public LatLng getLocation() {return new LatLng(this.location.getLatitude(),
+                                                    this.location.getLongitude());}
 
     public List<String> getPlayers() {
         return players;

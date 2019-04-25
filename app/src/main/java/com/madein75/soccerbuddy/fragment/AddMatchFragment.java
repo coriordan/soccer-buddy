@@ -15,10 +15,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.madein75.soccerbuddy.activity.MainActivity;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
@@ -63,8 +65,9 @@ public class AddMatchFragment extends Fragment {
     TextView textViewSelectedLevel;
 
     private Match matchItem;
-
     private Unbinder unbinder;
+
+    private MapFragment mapFragment;
 
     public AddMatchFragment() {
         // Required empty public constructor
@@ -84,6 +87,8 @@ public class AddMatchFragment extends Fragment {
         radioGroupSkillLevels.setOnCheckedChangeListener(
                 new IconPickerWrapper(textViewSelectedLevel));
         radioGroupSkillLevels.check(R.id.easy);
+
+        mapFragment = (MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
         return view;
     }
@@ -126,6 +131,8 @@ public class AddMatchFragment extends Fragment {
             return;
         }
 
+        LatLng location = mapFragment.getMarkedLocation();
+
         CollectionReference matchesRef = FirebaseFirestore.getInstance()
                 .collection("Matches");
 
@@ -138,6 +145,7 @@ public class AddMatchFragment extends Fragment {
                 fixtureDate,
                 kickOffTime,
                 skillLevel.name(),
+                new GeoPoint(location.latitude, location.longitude),
                 Collections.<String>emptyList());
 
         matchesRef.add(match);

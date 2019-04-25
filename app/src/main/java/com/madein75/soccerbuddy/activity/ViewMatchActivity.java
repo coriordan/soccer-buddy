@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Transaction;
 import com.madein75.soccerbuddy.R;
+import com.madein75.soccerbuddy.fragment.MapFragment;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.model.Membership;
 import com.madein75.soccerbuddy.model.Player;
@@ -65,6 +66,8 @@ public class ViewMatchActivity extends AppCompatActivity {
     @BindView(R.id.button_join_match)
     Button buttonJoinMatch;
 
+    private MapFragment mapFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +89,9 @@ public class ViewMatchActivity extends AppCompatActivity {
 
         // Get reference to match
         matchRef = db.collection("Matches").document(matchId);
+
+        mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.setReadOnly();
     }
 
     @Override
@@ -170,6 +176,7 @@ public class ViewMatchActivity extends AppCompatActivity {
         textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
         textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
         textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
+        mapFragment.setMarkedLocation(match.getLocation());
 
         // determine if we can enable the 'Join Match' button
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
