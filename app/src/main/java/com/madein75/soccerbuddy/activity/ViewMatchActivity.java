@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,6 +49,9 @@ public class ViewMatchActivity extends AppCompatActivity {
 
     @BindView(R.id.title)
     TextView textViewTitle;
+
+    @BindView(R.id.photo)
+    ImageView imageViewPhoto;
 
     @BindView(R.id.description)
     TextView textViewDescription;
@@ -176,7 +181,11 @@ public class ViewMatchActivity extends AppCompatActivity {
         textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
         textViewKickoffTime.setText(MatchPresenter.formatTime(match.getKickoffTime()));
         textViewSkillLevel.setText(MatchPresenter.formatSkillLevel(match.getSkillLevelVal()));
-        mapFragment.setMarkedLocation(match.getLocation());
+        mapFragment.setMarkedLocation(match.getLocationLatLng());
+
+        Glide.with(this)
+                .load(match.getPhotoUrl())
+                .into(imageViewPhoto);
 
         // determine if we can enable the 'Join Match' button
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();

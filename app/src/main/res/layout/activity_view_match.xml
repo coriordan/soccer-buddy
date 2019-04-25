@@ -37,7 +37,7 @@
             tools:text="A soccer match" />
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/photo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/match_preview_height"
             android:layout_marginBottom="8dp"

@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -42,6 +44,9 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
 
     class MatchHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.item_image)
+        ImageView imagePhoto;
+
         @BindView(R.id.item_title)
         TextView textViewTitle;
 
@@ -51,7 +56,7 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
         @BindView(R.id.item_fixture_date)
         TextView textViewFixtureDate;
 
-        public MatchHolder(@NonNull View itemView ) {
+        public MatchHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -60,6 +65,10 @@ public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.M
             textViewTitle.setText(match.getTitle());
             textViewDescription.setText(match.getDescription());
             textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
+
+            Glide.with(itemView.getContext())
+                    .load(match.getPhotoUrl())
+                    .into(imagePhoto);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

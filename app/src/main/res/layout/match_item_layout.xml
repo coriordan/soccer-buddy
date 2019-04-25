@@ -15,7 +15,7 @@
             android:id="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/match_preview_height"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

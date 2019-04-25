@@ -25,6 +25,7 @@ public class Match {
     private SkillLevel skillLevel;
     private GeoPoint location;
     List<String> players;
+    private String photoUrl;
 
     public Match() {} // required by Firebase
 
@@ -49,6 +50,7 @@ public class Match {
         this.skillLevel = SkillLevel.valueOf(skillLevel);
         this.location = location;
         this.players = players;
+        this.photoUrl = Photo.getPhotoUrl();
     }
 
     public String getOwnerId() {
@@ -86,11 +88,18 @@ public class Match {
         return skillLevel.name();
     }
 
-    public LatLng getLocation() {return new LatLng(this.location.getLatitude(),
+    public GeoPoint getLocation() {return location;}
+
+    @Exclude
+    public LatLng getLocationLatLng() {return new LatLng(this.location.getLatitude(),
                                                     this.location.getLongitude());}
 
     public List<String> getPlayers() {
         return players;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
     @Exclude
