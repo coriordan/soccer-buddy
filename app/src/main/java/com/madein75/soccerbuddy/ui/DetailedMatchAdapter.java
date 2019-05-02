@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.model.Match;
 import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
@@ -19,11 +18,11 @@ import com.madein75.soccerbuddy.ui.presenters.MatchPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MatchAdapter extends FirestoreRecyclerAdapter<Match, MatchAdapter.MatchHolder> {
+public class DetailedMatchAdapter extends FirestoreRecyclerAdapter<Match, DetailedMatchAdapter.MatchHolder> {
 
     private OnItemClickListener onClickListener;
 
-    public MatchAdapter(@NonNull FirestoreRecyclerOptions<Match> options) {
+    public DetailedMatchAdapter(@NonNull FirestoreRecyclerOptions<Match> options) {
         super(options);
     }
 
