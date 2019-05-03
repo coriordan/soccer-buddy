@@ -39,4 +39,8 @@ public class MatchPresenter {
     public static String formatPlacesAvailable(int places) {
         return Integer.toString(places);
     }
+
+    public static String formatPlayingCount(int players) {
+        return String.format("%d player(s)", players);
+    }
 }

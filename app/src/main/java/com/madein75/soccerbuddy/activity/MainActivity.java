@@ -17,6 +17,7 @@ import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.fragment.AddMatchFragment;
 import com.madein75.soccerbuddy.fragment.ExploreMatchesFragment;
 import com.madein75.soccerbuddy.fragment.HostingMatchesFragment;
+import com.madein75.soccerbuddy.fragment.PlayingMatchesFragment;
 import com.madein75.soccerbuddy.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_playing:
                     toolbar.setTitle(R.string.title_playing);
+                    fragment = new PlayingMatchesFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_add_match:
                     toolbar.setTitle(R.string.title_add_match);

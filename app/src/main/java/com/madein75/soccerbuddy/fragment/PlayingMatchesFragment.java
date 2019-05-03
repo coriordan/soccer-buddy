@@ -19,8 +19,10 @@ import com.google.firebase.firestore.Query;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.activity.ViewPlayersActivity;
 import com.madein75.soccerbuddy.model.Match;
-import com.madein75.soccerbuddy.ui.SimpleMatchAdapter;
+import com.madein75.soccerbuddy.model.Membership;
+import com.madein75.soccerbuddy.ui.MembershipAdapter;
 import com.madein75.soccerbuddy.ui.OnItemClickListener;
+import com.madein75.soccerbuddy.ui.SimpleMatchAdapter;
 
 import javax.annotation.Nullable;
 
@@ -29,57 +31,47 @@ import static com.madein75.soccerbuddy.SoccerBuddyApplication.EXTRA_MATCH_ID;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HostingMatchesFragment extends Fragment {
+public class PlayingMatchesFragment extends Fragment {
 
-    private static final String TAG = HostingMatchesFragment.class.getName();
+    private static final String TAG = PlayingMatchesFragment.class.getName();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference matchesRef = db.collection("Matches");
+    private CollectionReference membershipsRef = db.collection("Memberships");
 
-    private SimpleMatchAdapter adapter;
+    private MembershipAdapter adapter;
     RecyclerView recyclerView;
+
+    public PlayingMatchesFragment() {
+        // Required empty public constructor
+    }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hosting_matches, container, false);
+        View view = inflater.inflate(R.layout.fragment_playing_matches, container, false);
 
-        recyclerView = view.findViewById(R.id.hosting_items);
+        recyclerView = view.findViewById(R.id.membership_items);
         setUpRecyclerView();
 
         return view;
     }
 
     private void setUpRecyclerView() {
-        Query query = matchesRef
-                .whereEqualTo("ownerId", FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .orderBy("fixtureDate", Query.Direction.DESCENDING);
+        Query query = membershipsRef
+                .whereEqualTo("playerId", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .orderBy("matchFixtureDate", Query.Direction.DESCENDING);
 
-        FirestoreRecyclerOptions<Match> options = new FirestoreRecyclerOptions.Builder<Match>()
-                .setQuery(query, Match.class)
+        FirestoreRecyclerOptions<Membership> options = new FirestoreRecyclerOptions.Builder<Membership>()
+                .setQuery(query, Membership.class)
                 .build();
 
-        adapter = new SimpleMatchAdapter(options);
+        adapter = new MembershipAdapter(options);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                                                        DividerItemDecoration.VERTICAL);
+                DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                String matchId = documentSnapshot.getReference().getId();
-
-                Intent intent = new Intent(
-                        getContext(),
-                        ViewPlayersActivity.class
-                );
-
-                intent.putExtra(EXTRA_MATCH_ID, matchId);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

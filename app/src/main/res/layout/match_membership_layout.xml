@@ -35,12 +35,4 @@
         android:layout_toEndOf="@id/thumbnail"
         tools:text="@tools:sample/date/ddmmyy" />
 
-    <TextView
-        android:id="@+id/playing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fixture_date"
-        android:layout_toEndOf="@id/thumbnail"
-        tools:text="Playing: 6" />
-
 </RelativeLayout>

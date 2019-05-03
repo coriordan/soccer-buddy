@@ -19,7 +19,7 @@ import com.google.firebase.firestore.Query;
 import com.madein75.soccerbuddy.R;
 import com.madein75.soccerbuddy.activity.ViewMatchActivity;
 import com.madein75.soccerbuddy.model.Match;
-import com.madein75.soccerbuddy.ui.MatchAdapter;
+import com.madein75.soccerbuddy.ui.DetailedMatchAdapter;
 import com.madein75.soccerbuddy.ui.OnItemClickListener;
 
 import static com.madein75.soccerbuddy.SoccerBuddyApplication.EXTRA_MATCH_ID;
@@ -31,7 +31,7 @@ public class ExploreMatchesFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference matchesRef = db.collection("Matches");
 
-    private MatchAdapter adapter;
+    private DetailedMatchAdapter adapter;
     RecyclerView recyclerView;
 
     @Nullable
@@ -52,7 +52,7 @@ public class ExploreMatchesFragment extends Fragment {
                 .setQuery(query, Match.class)
                 .build();
 
-        adapter = new MatchAdapter(options);
+        adapter = new DetailedMatchAdapter(options);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
