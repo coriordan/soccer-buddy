@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -111,10 +112,11 @@ public class ProfileFragment extends Fragment {
             textViewEmail.setVisibility(View.VISIBLE);
             textViewUser.setVisibility(View.VISIBLE);
 
-            textViewEmail.setText(user.getDisplayName());
+            textViewUser.setText(user.getDisplayName());
             textViewEmail.setText(user.getEmail());
             Glide.with(getActivity())
                     .load(user.getPhotoUrl())
+                    .apply(RequestOptions.circleCropTransform())
                     .into(imageProfile);
         }
     }
