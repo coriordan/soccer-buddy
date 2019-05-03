@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">SoccerBuddy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="label_title">Title</string>
+    <string name="label_players">Players required</string>
+    <string name="label_description">Description</string>
+    <string name="label_fixture_date">Fixture date</string>
+    <string name="description_easy">Easy</string>
+    <string name="description_moderate">Moderate</string>
+    <string name="description_competitive">Competitive</string>
+    <string name="label_skillLevel">Skill Level</string>
+    <string name="label_save">Add Match</string>
+    <string name="title_playing">Matches I\'m Playing</string>
+    <string name="title_hosting">Matches I\'m Hosting</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_explore">Explore</string>
+    <string name="title_add_match">Add a match</string>
+    <string name="title_explore_matches">Explore matches</string>
+    <string name="menu_playing">Playing</string>
+    <string name="menu_hosting">Hosting</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_explore">Explore</string>
+    <string name="menu_add_match">Add a match</string>
+    <string name="menu_explore_matches">Explore matches</string>
+    <string name="play_match">Play a match</string>
+    <string name="players_needed">Players</string>
+    <string name="item_description_label">Description</string>
+    <string name="lbl_skill_level">Skill Level</string>
+    <string name="label_fixture_time">Kickoff time</string>
+    <string name="provide_missing_match_details">Please insert a title and description</string>
+    <string name="label_location">Match location</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="logo_description">SoccerBuddy logo</string>
+    <string name="sign_in_instruction">Sign in to use SoccerBuddy</string>
+    <string name="view_players">View players</string>
+    <string name="join_match">Join Match</string>
 </resources>
