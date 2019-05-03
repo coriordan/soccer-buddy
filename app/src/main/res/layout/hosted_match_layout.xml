@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/fab_margin"
+    android:paddingLeft="@dimen/grid_spacer1"
     android:paddingRight="@dimen/fab_margin"
     android:paddingTop="@dimen/grid_spacer1"
     android:paddingBottom="@dimen/grid_spacer1">
@@ -15,6 +15,7 @@
         android:layout_height="@dimen/thumbnail"
         android:layout_centerVertical="true"
         android:layout_marginEnd="16dp"
+        android:scaleType="matrix"
         tools:src="@tools:sample/avatars" />
 
     <TextView

@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.madein75.soccerbuddy.R;
@@ -41,6 +43,9 @@ public class SimpleMatchAdapter extends FirestoreRecyclerAdapter<Match, SimpleMa
 
     class HostedMatchHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.thumbnail)
+        ImageView imageViewThumbnail;
+
         @BindView(R.id.title)
         TextView textViewTitle;
 
@@ -59,6 +64,10 @@ public class SimpleMatchAdapter extends FirestoreRecyclerAdapter<Match, SimpleMa
             textViewTitle.setText(match.getTitle());
             textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
             textViewPlaying.setText(MatchPresenter.formatPlayingCount(match.getPlayersJoined()));
+
+            Glide.with(itemView.getContext())
+                    .load(match.getPhotoUrl())
+                    .into(imageViewThumbnail);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
