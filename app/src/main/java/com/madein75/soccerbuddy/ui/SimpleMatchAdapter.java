@@ -58,6 +58,7 @@ public class SimpleMatchAdapter extends FirestoreRecyclerAdapter<Match, SimpleMa
         public void bind(final Match match) {
             textViewTitle.setText(match.getTitle());
             textViewFixtureDate.setText(MatchPresenter.formatDate(match.getFixtureDate()));
+            textViewPlaying.setText(MatchPresenter.formatPlayingCount(match.getPlayersJoined()));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
