@@ -156,8 +156,12 @@ public class ViewMatchActivity extends AppCompatActivity {
 
                 // create the membership object
                 DocumentSnapshot matchSnapshot = transaction.get(matchRef);
+                Match match = matchSnapshot.toObject(Match.class);
                 Membership membership = new Membership(currentUserId,
                         matchSnapshot.getId(),
+                        match.getTitle(),
+                        match.getFixtureDate(),
+                        match.getPhotoUrl(),
                         new Date());
 
                 // update no. players playing match
